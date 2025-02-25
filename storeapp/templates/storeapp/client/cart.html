@@ -23,6 +23,14 @@
 
 
       <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap4.min.css" />
+      <style>
+         /* Center the Toastr popup in the middle of the screen */
+         .toast-center-screen {
+             top: 0px !important;
+             left: 50% !important;
+             transform: translate(-50%, 0px) !important;
+         }
+         </style>
    </head>
    <body class="bg-light">
 {% include '../includes/nav.html' %}
@@ -196,9 +204,24 @@
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'storeapp/assets/vendor/jquery/jquery.min.js' %}"></script>
       <script src="{% static 'storeapp/assets/toastr.min.js' %}"></script>
-      
-      <!-- <script src="{% static 'storeapp/assets/leaflet.js' %}"></script>
-      <script src="{% static 'storeapp/assets/leaflet_routing.js' %}"></script> -->
+      <script>
+         toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-center-screen",  // Custom position for center screen
+        "preventDuplicates": true,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+      </script>
       
       <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
       <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>

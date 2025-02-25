@@ -61,7 +61,7 @@ def homepage(request):
     except Exception as e:
         reglink=''
 
-    print(request.user.useraccount.usertype)
+    
     
     context={
          'page':'HOMEPAGE',
@@ -79,6 +79,8 @@ def homepage(request):
             return render(request,'storeapp/farmer/index.html',context)
         elif(request.user.useraccount.usertype == 'CLIENT'):
             return render(request,'storeapp/client/index.html',context)
+        else:
+            return render(request,'storeapp/homepage/404.html',context)
      
         
     except Exception as e:
@@ -183,9 +185,15 @@ def save_address(request):
      lng=request.POST.get('ad_lng')
      desc=request.POST.get('ad_desc')
      atype=request.POST.get('ad_type')
-     s_address=Address.objects.create(user=request.user, ad_name=name,ad_region=region,ad_state=state,ad_lat=lat,ad_long=lng,ad_desc=desc,ad_type=atype).save()
-     print(s_address)
-     return JsonResponse({'data':s_address})
+     try:
+        address = Address.objects.get(ad_status='ACTIVE',user=request.user)
+        address=Address.objects.create(user=request.user, ad_name=name,ad_region=region,ad_state=state,ad_lat=lat,ad_long=lng,ad_desc=desc,ad_type=atype,ad_status='INACTIVE').save()
+        return JsonResponse({'address': address})
+     except Address.DoesNotExist:
+        address=Address.objects.create(user=request.user, ad_name=name,ad_region=region,ad_state=state,ad_lat=lat,ad_long=lng,ad_desc=desc,ad_type=atype,ad_status='ACTIVE').save()
+        return JsonResponse({'address': address})
+    
+     
 
 @csrf_exempt
 def up_address(request):
@@ -199,8 +207,12 @@ def up_address(request):
 
 def get_address(request):
     try:
-        g_add = Address.objects.values('ad_id','ad_name','ad_type','ad_status').filter(user=request.user)
-        ad = list(g_add)
+        if request.user.is_authenticated:
+            g_add = Address.objects.values('ad_id','ad_name','ad_type','ad_status').filter(user=request.user)
+            ad = list(g_add)
+        else:
+            ad=[]
+    
         return JsonResponse(ad, safe=False)
     except Exception as e:
         print(f"Error fetching Address data: {e}")
@@ -533,8 +545,16 @@ def farmer_address(request):
             'signup_frm':SignUpForm(),
             'address_frm':AddressForm()
         }
-
     return render(request,'storeapp/homepage/farmer_address.html',context)
+
+def client_address(request):
+    context={
+            'page':'CLIENT_ADDRESS',
+            'login_frm':LoginForm(),
+            'signup_frm':SignUpForm(),
+            'address_frm':AddressForm()
+        }
+    return render(request,'storeapp/homepage/client_address.html',context)
 
 
 def get_orders(request):
