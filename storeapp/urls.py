@@ -32,6 +32,7 @@ urlpatterns = [
     path('search_user',views.search_user,name='search_user'),
     path('farmer/reg/<str:accesskey>',views.farmer_link,name="farmer_link"),
     path('farmer_address',views.farmer_address,name='farmer_address'),
+    path('client_address',views.client_address,name='client_address'),
     path('checkout',views.checkout,name='checkout'),
     path('transfer_product',views.transfer_product,name='transfer_product'),
     path('stat_product',views.stat_product,name='stat_product'),

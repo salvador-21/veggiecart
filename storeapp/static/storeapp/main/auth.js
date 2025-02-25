@@ -41,7 +41,7 @@ $(document).ready(function(){
                 success:function(res){
                     if(res.data == 'valid'){
                         toastr["success"]("Registered Successfully!");
-                        window.location.href = 'homepage';
+                        window.location.href = '../../farmer_address';
                     }else{
                         for(err in res.data){
                             toastr["error"](res.data[err]);
@@ -52,6 +52,7 @@ $(document).ready(function(){
         }
 
     })
+
 
     $('#signup_farmer').on('submit',function(e){
         e.preventDefault()

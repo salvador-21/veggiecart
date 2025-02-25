@@ -47,11 +47,11 @@ async function get_address(){
           $('#address_display').html('')
           
         for(a in data){
-            
+            active=data[a].ad_name.slice(0, 25)
             if(data[a].ad_status == 'ACTIVE'){
                 chk='checked'
                 txt='text-success'
-                $('.cur_add').text(data[a].ad_name)
+                $('.cur_add').text(active)
                 $('#c_address').text(data[a].ad_name)
                 $('.c_address').val(data[a].ad_name)
             }else{

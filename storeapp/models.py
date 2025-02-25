@@ -22,7 +22,7 @@ class UserProfile(AbstractUser):
     
 class UserAccount(models.Model):
     user=models.OneToOneField(UserProfile,on_delete=CASCADE,related_name='useraccount')
-    contact_no=models.CharField(unique=True,max_length=12, blank=False, null=False,default='+63000000000')
+    contact_no=models.CharField(max_length=12, blank=False, null=False,default='+63000000000')
     referral_code=models.CharField(max_length=50,null=True, blank=True)
     usertype=models.CharField(max_length=50,default='ADMIN', choices=[('CLIENT','CLIENT'),('FARMER','FARMER'),('ADMIN','ADMIN'),('SUPER ADMIN','SUPER ADMIN')]) 
     status=models.CharField(max_length=50,default='NOT VERIFIED',choices=[('NOT VERIFIED','NOT VERIFIED'),('VERIFIED','VERIFIED')])
