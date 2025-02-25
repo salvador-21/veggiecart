@@ -1,0 +1,192 @@
+{% load static %}
+
+
+<div class="modal fade" id="loginModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered login-popup-main">
+       <div class="modal-content border-0 shadow overflow-hidden rounded">
+          <div class="modal-body p-0">
+             <div class="login-popup">
+                <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="row g-0">
+                   <div class="d-none d-md-flex col-md-4 col-lg-4 bg-image1"></div>
+                   <div class="col-md-8 col-lg-8 py-lg-5">
+                      <div class="login p-5">
+                         <div class="mb-4 pb-2">
+                            <h5 class="mb-2 fw-bold">Login?</h5>
+                            <!-- <p class="text-muted mb-0">Please login with this number the next time you sign-in</p> -->
+                         </div>
+                         <form id="login_frm">
+                            <!-- {{login_frm}} -->
+                             {% csrf_token %}
+                            <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-person pe-2"></i> </span>
+                              {{login_frm.username}}
+                              <!-- <input type="text" class="form-control bg-white border-0 ps-0" placeholder="Enter Username"> -->
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-lock pe-2"></i> </span>
+                              {{login_frm.password}}
+                              <!-- <input type="password" class="form-control bg-white border-0 ps-0" placeholder="Enter Password"> -->
+                           </div>
+                           <div class="msg">
+                              
+                           </div>
+                            <button type="submit" form="login_frm" class="btn btn-success btn-lg py-3 px-4 text-uppercase w-100 mt-4" >Sign-In<i class="bi bi-arrow-right ms-2"></i></button>
+                         </form>
+                         <p class="text-muted mb-0">Don't have an Account?
+                           <a data-bs-target="#signup" data-bs-toggle="modal" class="text-success text-decoration-none" href="#"><i class="bi bi-pencil-square"></i> Sign-Up</a>
+                        </p>
+                         <!-- <button class="btn btn-primary btn-sm py-3 px-4 text-uppercase w-100 mt-4" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Get OTP <i class="bi bi-arrow-right ms-2"></i></button> -->
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- 2nd -->
+ <div class="modal fade" id="signup" aria-hidden="true" data-bs-backdrop="static" aria-labelledby="" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered login-popup-main">
+       <div class="modal-content border-0 shadow overflow-hidden rounded">
+          <div class="modal-body p-0">
+             <div class="login-popup">
+                <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="row g-0">
+                   <div class="d-none d-md-flex col-md-4 col-lg-4 bg-image1"></div>
+                   <div class="col-md-8 col-lg-8 py-lg-5">
+                     
+                      <div class="login p-5">
+                         <div class="mb-4 pb-2">
+                            <h5 class="mb-2 fw-bold">User Registration!</h5>
+                         </div>
+                         <form id="signup_frm">
+                           {% csrf_token %}
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-person pe-2"></i> </span>
+                              {{signup_frm.first_name}}
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-person pe-2"></i> </span>
+                              {{signup_frm.last_name}}
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-person pe-2"></i> </span>
+                              {{signup_frm.email}}
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-person pe-2"></i> </span>
+                              {{signup_frm.contact_no}}
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-key pe-2"></i> </span>
+                              {{signup_frm.username}}
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-lock pe-2"></i> </span>
+                              {{signup_frm.password}}
+                           </div>
+                           <div class="input-group bg-white border rounded mb-3 p-2">
+                              <span class="input-group-text bg-white border-0"><i class="bi bi-lock pe-2"></i> </span>
+                              {{signup_frm.confirm_password}}
+                           </div>
+                           <input type="hidden" name="usertype" value="CLIENT">
+                           <div class="rmsg"></div>
+                           <button type="submit"  class="btn btn-success btn-lg py-3 px-4 text-uppercase w-100 mt-4" >Register <i class="bi bi-arrow-right ms-2"></i></button>
+                         </form>
+                         <p class="text-muted mb-0">Have an Account?
+                           <a data-bs-target="#loginModal" data-bs-toggle="modal" class="text-success text-decoration-none" href="#"><i class="bi bi-pencil-square"></i> Sign-In</a>
+                         </p>
+                         
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- 3rd -->
+ <!-- <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content border-0 shadow">
+          <div class="modal-header p-4 border-0">
+             <h5 class="h6 modal-title fw-bold" id="exampleModalToggleLabel3"></h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+             <div class="text-center mb-5 pb-2">
+                <div class="mb-3"><img src="{% static 'veggiecart/assets/img/login2.png' %}" class="col-6 mx-auto" alt="" ></div>
+                <h5 class="mb-2">Have a Referral or Invite Code?</h5>
+                <p class="text-muted">Use code GET50 to earn 50 Eatsle Cash</p>
+             </div>
+             <form>
+                <label class="form-label">Enter your referral/invite code</label>
+                <div class="input-group mb-2 border rounded-3 p-1">
+                   <span class="input-group-text border-0 bg-white"><i class="bi bi bi-ticket-perforated  text-secondary"></i></span>
+                   <input type="text" class="form-control border-0 bg-white ps-1" placeholder="Enter the code" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+             </form>
+          </div>
+          <div class="modal-footer px-4 pb-4 pt-0 border-0">
+             <button class="btn btn-success btn-lg py-3 px-4 text-uppercase  w-100 m-0" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Claim Eatsle Cash</button>
+          </div>
+       </div>
+    </div>
+ </div> -->
+ <!-- 4rth -->
+ <!-- <div class="modal fade" id="exampleModalToggle4" aria-hidden="true" aria-labelledby="exampleModalToggleLabel4" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content border-0 shadow">
+          <div class="modal-header p-4 border-0">
+             <h5 class="h6 modal-title fw-bold" id="exampleModalToggleLabel4"></h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+             <div class="row justify-content-center">
+                <div class="col-10 text-center">
+                   <div class="mb-5"><img src="{% static 'veggiecart/assets/img/login3.png' %}" alt="" class="col-6 mx-auto"></div>
+                   <div class="my-3">
+                      <h5 class="fw-bold">You got &#8377;50.0 Eatsle Cash!</h5>
+                      <p class="text-muted h6">use this Eatsle Cash to save on your next orders</p>
+                   </div>
+                   <div class="my-4">
+                      <p class="small text-muted mb-0">Your Eatsle Cash will expire in</p>
+                      <div class="h5 text-success">6d:23h</div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="modal-footer px-4 pb-4 pt-0 border-0">
+             <a href="index.html" class="btn btn-success btn-lg py-3 px-4 text-uppercase w-100 m-0">Tap to order</a>
+          </div>
+       </div>
+    </div>
+ </div> -->
+ <!-- location Modal -->
+ <div class="modal fade" id="my_address" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content border-0 shadow">
+          <div class="modal-header px-4">
+             <h5 class="h6 modal-title fw-bold">Change Active Location</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+             <!-- <form>
+                <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                   <span class="input-group-text bg-white border-0"><i class="icofont-search"></i></span>
+                   <input type="text" class="form-control bg-white border-0 ps-0" placeholder="Search for area, location name">
+                </div>
+             </form> -->
+             
+             <div id="address_display">
+                
+                
+             </div>
+             <button type="button" class="btn btn-outline-success btn-lg py-3 px-4 w-100" data-bs-toggle="modal" data-bs-target="#MapModal">
+               <i class="bi bi-pin-map me-2"></i> Add New Address
+               </button>
+          </div>
+       </div>
+    </div>
+ </div>

@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+   {% load static %}
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="icon" type="image/png" href="{% static 'storeapp/assets/img/fav.png' %}">
+      <title id="page_title">e-Veggie - {{page}} </title>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+      <!-- Bootstrap core CSS -->
+      <link href="{% static 'storeapp/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+      <!-- Icofont Icon-->
+      <link href="{% static 'storeapp/assets/vendor/icons/icofont.min.css' %}" rel="stylesheet" type="text/css">
+      <!-- Bootstraps icon -->
+      <link rel="stylesheet" href="{% static 'storeapp/assets/npm/bootstrap-icons%401.8.1/font/bootstrap-icons.css'%}">
+      <link href="{% static 'storeapp/assets/css/style.css' %}" rel="stylesheet">
+      <link href="{% static 'storeapp/assets/toastr.min.css' %}" rel="stylesheet">
+
+
+      <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap4.min.css" />
+   </head>
+   <body class="bg-light">
+{% include '../includes/nav.html' %}
+ <main  class="sticky-top ">
+    <section class="bg-success">
+       <div class="container py-4">
+          <div class="row justify-content-between align-items-center">
+             <div class="col-md-6">
+                <div class="d-flex align-items-center listing-detail-info gap-3">
+                   <img src="{% static 'storeapp/assets/img/list8.jpg'%}" class="img-fluid rounded-3" alt="...">
+                   <div class="listing-detail-info-body">
+                      <h3 class="listing-detail-info-title fw-bold mb-1 text-white">Veggie Cart Online</h3>
+                      <p class="mb-3 text-white-50">Name</p>
+                      <div class="d-flex align-items-center gap-4">
+                         <div>
+                            <div class="text-uppercase text-white fw-bold fs-14"> <span id="distance"></span></div>
+                            <p class="text-white-50 small mb-0">Distance</p>
+                         </div>
+                         <div>
+                            <div class="text-uppercase text-white fw-bold fs-14"><span id="d_time"></span></div>
+                            <p class="text-white-50 small mb-0">Delivery Time</p>
+                         </div>
+                         <div>
+                            <div class="text-uppercase text-warning-light fw-bold fs-14">Open now</div>
+                            <p class="text-white-50 small mb-0">Opening</p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="col-md-4 d-none d-md-block">
+                <div class="offer-box position-relative bg-white rounded-3 shadow-sm p-4">
+                   <small class="offer-box-title fw-bold bg-warning text-white">OFFER</small>
+                   <div class="d-flex align-items-center gap-3 mb-3">
+                      <i class="bi bi-percent m-0 rounded-pill rounded-icon"></i>
+                      <span>
+                         <div class="text-uppercase text-success fw-bold">60% off</div>
+                         <p class="text-muted small mb-0">Up to ₹120 | Use code MISSEDYOU</p>
+                      </span>
+                   </div>
+                   <div class="d-flex align-items-center gap-3">
+                      <i class="bi bi-gift m-0 rounded-pill rounded-icon"></i>
+                      <span>
+                         <div class="text-uppercase text-success fw-bold">Free Food</div>
+                         <p class="text-muted small mb-0">Free Laccha Paratha on orders above Rs 349</p>
+                      </span>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+ </main>
+ <!-- body -->
+ <section class="border-bottom bg-light listing-detail-page">
+    <div class="container">
+       <div class="row">
+         <div class="col-12">
+            <div class="mt-4" id="map" style="width: 100%;height: 300px;"></div>
+            <form class="bg-white border-bottom p-2">
+               <div class="input-group border-0 osahan-search-icon rounded">
+                  <span class="input-group-text bg-white border-0"><i class="icofont-search"></i></span>
+                  <input type="text" class="form-control bg-white border-0 ps-2" placeholder="Search Cart Items">
+               </div>
+            </form>
+         </div>
+          <div class="col-12 col-md-8">
+            
+             <div class="mt-4" id="cart_items">
+               <!-- start items -->
+               
+               
+               <!-- end items -->
+             </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="bg-white rounded shadow-sm mb-3 mt-4">
+               <div class="p-3 border-bottom">
+                  <h5 class="fw-bold mb-1">Delivery Address</h5>
+                  <!-- <p class="text-muted mb-0"><a href="#" class="text-decoration-none text-success">Click Here to Change Address</a>
+                  </p> -->
+               </div>
+               <div class="p-3">
+                  <div class="mb-3">
+                     <div class="small text-muted mb-1">Active Address</div>
+                     <div class="mb-0 fs-14"><span id="c_address">D-292, Divya Marg, Shiniwas Puri, Block</span></div>
+                   
+                  </div>
+                  
+               </div>
+            </div>
+
+           
+               <div class="bg-white rounded shadow-sm mb-3 mt-4">
+                  <div class="p-3 border-bottom">
+                     <h5 class="fw-bold mb-1">Payment Method</h5>
+                  </div>
+                  <div class="p-3">
+                     <div class="mb-3">
+                        <select class="form-control payment_method">
+                           <option value=""> Select Payment Option</option>
+                           <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                           <option value="Online Payment (GCASH)">Online Payment (GCASH)</option>
+                        </select>
+                      
+                     </div>
+                     
+                  </div>
+               </div>
+
+            <div class="bg-white rounded shadow-sm p-3">
+               <div class="h5 fw-bold"><span><i class="bi bi-receipt"></i></span>&nbsp;Invoice</div>
+               <input type="hidden" id="shipping_sub">
+               <input type="hidden" id="topay">
+               
+               <div class="d-flex justify-content-between my-3">
+                  <div>Merchandise Subtotal&nbsp;<span><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Free delivery covers all delivery charges such as delivery fee" class="bi bi-info-circle"></i></span></div>
+                  <div class="p">&#8369; &nbsp;<span class="merchant_sub">0</span></div>
+               </div>
+               <hr>
+               <div class="d-flex justify-content-between my-3">
+                  <div>Shipping Subtotal&nbsp;<span><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Free delivery covers all delivery charges such as delivery fee" class="bi bi-info-circle"></i></span></div>
+                  <div class="p">&#8369; &nbsp;<span class="ship_sub">0</span></div>
+               </div>
+               <hr>
+               <div class="d-flex justify-content-between my-3">
+                  <div>Shipping Discount Subtotal&nbsp;<span><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Free delivery covers all delivery charges such as delivery fee" class="bi bi-info-circle"></i></span></div>
+                  <div class="p">&#8369; &nbsp;<span class="sd_sub">0</span></div>
+               </div>
+               <hr>
+               <div class="d-flex justify-content-between h6 mb-0">
+                  <div>To pay</div>
+                  <div class="fw-bold">&#8369;&nbsp;<span class="total">0</span></div>
+               </div>
+            </div>
+            <div class="d-grid my-4">
+               <button href="#" class="btn btn-success btn-lg py-3 px-4 checkout_btn">
+                  <div class="d-flex justify-content-between">
+                     <div>CHECKOUT</div>
+                     
+                  </div>
+               </button>
+            </div>
+         </div>
+          
+          </div>
+       </div>
+    </div>
+ </section>
+
+ {% if user.useraccount.usertype == 'ADMIN' %}
+ {% include '../includes/admin_modal.html' %}
+ {% endif %}
+
+ {% if user.useraccount.usertype == 'FARMER' %}
+ {% include '../includes/farmer_modal.html' %}
+ {% endif %}
+ 
+ {% include '../includes/modals.html' %}
+ {% include '../includes/address_modal.html' %}
+
+ 
+ <div class="w-100 d-block d-md-none d-lg-none mobile-nav-bottom position-fixed d-flex align-items-center justify-content-around shadow-sm">
+   <a data-bs-toggle="modal" href="#exampleModalToggle" href="#"><span class="bi bi-unlock-fill"></span> Sign In</a>
+   <a href="#"><span class="bi bi-card-heading"></span> Listing</a>
+   <a href="#"><span class="bi bi-basket-fill"></span> Cart <b>2</b></a>
+   <a href="#"><span class="bi bi-person-badge"></span> Account</a>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'storeapp/assets/vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'storeapp/assets/toastr.min.js' %}"></script>
+      
+      <!-- <script src="{% static 'storeapp/assets/leaflet.js' %}"></script>
+      <script src="{% static 'storeapp/assets/leaflet_routing.js' %}"></script> -->
+      
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+      <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+      <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+   
+
+      <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.min.js"></script>
+      <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
+
+      {% if user.is_authenticated %}
+    
+      {% else %}
+      <script src="{% static 'storeapp/main/landing.js' %}"></script>
+      {% endif %}
+      
+      {% if user.useraccount.usertype == 'FARMER' %}
+      <script src="{% static 'storeapp/main/farmer.js' %}"></script>
+      {% endif %}
+
+      <script src="{% static 'storeapp/main/site.js' %}"></script>
+
+      {% if user.useraccount.usertype == 'ADMIN' %}
+      <script src="{% static 'storeapp/main/admin.js' %}"></script>
+      <script src="{% static 'storeapp/main/product.js' %}"></script>
+      {% endif %}
+
+      {% if user.useraccount.usertype == 'CLIENT' or page == 'My CART' %}
+      <script src="{% static 'storeapp/main/client.js' %}"></script>
+      {% endif %}
+   
+      <script src="{% static 'storeapp/main/auth.js' %}"></script>
+      {% if page != 'MY CART' %}
+      <script src="{% static 'storeapp/main/get_map.js' %}"></script>
+      {% endif %}
+      
+      <script src="{% static 'storeapp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <!-- Custom scripts for all pages-->
+      <script src="{% static 'storeapp/assets/js/custom.js' %}"></script>
+
+<script>
+   
+   var data = JSON.parse('{{ json_data|escapejs }}');
+   var delivery_fee=0
+   $('#c_address').text(data.add_name)
+
+
+   client_lat=data.lat
+   client_lng=data.lng
+
+   var admin_loc=data.admin.address
+   aloc=admin_loc.split('-')
+   var map = L.map('map',{
+      zoomControl: false,        // Hide zoom control
+      dragging: true,           // Disable dragging
+      scrollWheelZoom: false,    // Disable zoom with scroll
+      doubleClickZoom: false,    // Disable double-click zoom
+      boxZoom: false,            // Disable box zoom
+      keyboard: false,           // Disable keyboard controls
+      tap: false,                // Disable tap on touch devices
+      touchZoom: false
+   }).setView([13.772598, 122.951118], 10);  // Start Sipocot
+ 
+   // Add OpenStreetMap tiles
+   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+   }).addTo(map);
+   
+   
+   
+      navigator.geolocation.getCurrentPosition(getPosition)
+       function getPosition(position){
+           var lat = position.coords.latitude
+           var lng = position.coords.longitude
+           var accuracy=position.coords.accuracy
+           const routingControl = L.Routing.control({
+            waypoints: [
+                L.latLng(aloc[0], aloc[1]),   // Start point
+                L.latLng(client_lat, client_lng)     // End point
+            ],
+            routeWhileDragging: false,
+            showAlternatives: true,
+            draggableWaypoints: false,  // 🔒 Disable dragging of waypoints
+            addWaypoints: false,
+            router: L.Routing.osrmv1({
+                serviceUrl: 'https://router.project-osrm.org/route/v1',  // OSRM backend
+                profile: 'driving',  // driving, walking, cycling
+               timeout: 30000       // Request timeout (in ms)
+
+            })
+        })
+        .on('routesfound', function (e) {
+            const routes = e.routes;
+            const summary = routes[0].summary;
+            const travelTimeInSeconds = summary.totalTime;
+            const travelTimeInHours = (travelTimeInSeconds / 3600).toFixed(2);  // Convert to hours
+            var distanceMeters = summary.totalDistance;  // Distance in meters
+            var distanceKm = (distanceMeters / 1000).toFixed(2);  // Convert to kilometers
+            document.getElementById('distance').innerText =distanceKm + " km";
+            document.getElementById('d_time').innerText = travelTimeInHours+" hrs"  ;
+
+            // console.log(`Travel Time: ${travelTimeInHours} hours`);
+            // console.log(`Distance: ${distanceKm} km`);
+            dis=distanceKm.split('.')
+
+            regular_distanse=2
+           
+   
+            if(distanceKm <= regular_distanse){
+               delivery_fee=50
+            }else if(distanceKm > 2){
+               x=distanceKm - regular_distanse;
+               additional_fee=x*10
+               delivery_fee=50+additional_fee
+               
+            }else{
+               delivery_fee=0
+            }
+
+            
+            $('.ship_sub').text(delivery_fee)
+            $('#shipping_sub').val(delivery_fee)
+            
+            // alert(`Estimated Travel Time: ${travelTimeInHours} hours`);
+        })
+        .addTo(map);
+       
+       }
+      
+       
+
+
+      //  end map
+
+
+      get_cart_item()
+async function get_cart_item(){
+   // ////////////////////////////////
+   
+
+   // ////////////////////////////////
+
+   $('#cart_items').html('')
+   try {
+      let response = await fetch(`/get_cart_item/`);  // Send GET request
+      let data = await response.json();  // Convert response to JSON
+    
+      merchant_sub=0
+      console.log(data)
+      for(a in data){
+            merchant_sub+=parseFloat(data[a].cart_price)
+   
+         cart='<div class="product-list d-flex p-3 border-bottom bg-white">\
+                  <img src="../media/'+data[a].product__image__pi_image+'" class="img-fluid" alt="...">\
+                  <div class="product-list-body px-3">\
+                     <p class="fw-bold mb-1">'+data[a].product__prod_name+'</p>\
+                     <p class="card-text small mb-0">'+data[a].product__prod_desc+'</p>\
+                     <p class="card-text text-muted mb-2">Per '+data[a].product__pricing__p_unit+'</p>\
+                     <h6 class="fw-bold">'+data[a].cart_price+'</h6></div>\
+                  <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto mb-auto">\
+                     <div class="minus cart-quantity-btn" type="minus"  id="'+data[a].cart_id+'"><i class="bi bi-dash text-success"></i></div>\
+                     <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="'+data[a].cart_qty+'">\
+                     <div class="plus cart-quantity-btn" type="plus"  id="'+data[a].cart_id+'"><i class="bi bi-plus text-success"></i>\
+                  </div>\
+               </div>'
+                              
+         $('#cart_items').append(cart)
+         
+
+      }
+      $('.merchant_sub').text(merchant_sub.toLocaleString())
+      ship_fee=parseFloat($('#shipping_sub').val())
+      
+      total=merchant_sub + ship_fee
+     
+      
+      $('.total').text(total.toLocaleString())
+      $('#topay').val(total)
+
+      
+      }
+      catch (error) {
+         console.error("Error:", error);
+     }
+}
+
+$(document).on('click', '.cart-quantity-btn', function(){
+
+   cid=$(this).attr('id')
+   type=$(this).attr('type')
+   
+   $.ajax({
+      type: "POST",
+      url: "../cart_update",
+      data: {
+          'cid': cid,
+          'ttype': type,
+      },
+      success: function(res){
+
+         
+         get_cart_item()
+         cart_count()
+            if(res.data == 'ok'){
+               toastr["success"]("Cart Updated.");
+               
+            }else{
+               toastr["error"](res.data);
+            }
+      }
+      })
+
+})
+
+
+$('.checkout_btn').click(function(e){
+
+   total=$('#topay').val()
+   ship=$('#shipping_sub').val()
+   payment=$('.payment_method').val()
+   if(payment == ''){
+      toastr["error"]("Please Choose Payment Method.");
+   }else{
+      if (confirm("Cart Checkout Product?")){
+        $.ajax({
+            method:'POST',
+            url:'../cart_checkout',
+            data:{'total':total,'ship':ship,'payment':payment},
+            success:function(res){
+               console.log(res.data)
+                if(res.data == 'ok'){
+                    toastr["success"]("Product Deleted Successfully!");
+                    window.location.href = '/';
+                    window.location.href = res.checkout_url , '_blank';
+                }else{
+                    toastr["error"]("Error Deleting Product.");
+                }
+            }
+        })
+     }
+   }
+  
+   
+
+
+})
+
+
+
+async function get_cart_product(){
+   $('#cart_items').html('')
+   try {
+      let response = await fetch(`/get_cart_product/`);  // Send GET request
+      let data = await response.json();  // Convert response to JSON
+      
+      total=0
+      for(a in data){
+            total+=data[a].cart_price
+         cart='<div class="cart-box-item d-flex align-items-center py-2 px-3">\
+                         <div class="success-dot"></div>\
+                         <div class="cart-box-item-title px-2">\
+                            <p class="mb-0">'+data[a].product__prod_name+'</p>\
+                            <p class="small text-muted mb-0">'+data[a].cart_unit+'</p>\
+                         </div>\
+                         <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto">\
+                            <div class="minus cart-quantity-btn" type="minus"  id="'+data[a].cart_id+'"><i class="bi bi-dash text-success"></i></div>\
+                            <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="'+data[a].cart_qty+'"/>\
+                            <div class="plus cart-quantity-btn"  type="plus" id="'+data[a].cart_id+'"><i class="bi bi-plus text-success"></i></div>\
+                         </div>\
+                         <div class="cart-box-item-price">\
+                            <div class="text-end">&#8369;'+data[a].cart_price+'</div>\
+                         </div>\
+                      </div>'
+                              
+         $('#cart_items').append(cart)
+         
+
+      }
+      $('.cart_total').text(total)
+      }
+      catch (error) {
+         console.error("Error:", error);
+     }
+}
+   
+    </script>
+
+
+</body>
+
+
+</html>
+

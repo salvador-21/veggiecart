@@ -1,0 +1,477 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+       <div class="col-lg-8">
+          <div class="accordion accordion-payment accordion-flush ps-4 ms-4" id="accordionFlushExample">
+
+             <div class="accordion-item accordion-item-line1 bg-white shadow-sm rounded border-0 position-relative mb-3">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                   <button class="accordion-button rounded-3 collapsed p-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      <span>
+                         <h5 class="fw-bold mb-2">Delivery Address</h5>
+                         <p class="small text-muted mb-0">Select a saved delivery address or add a new address</p>
+                      </span>
+                   </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                   <div class="accordion-body px-4 pb-4 pt-0 row">
+                     <div class="address_field row">
+                        {% include "storeapp/homepage/cart_address.html" %}
+                     </div>
+                    
+                      <button type="button" class="btn btn-outline-success btn-lg py-3 px-4 w-100" data-bs-toggle="modal" data-bs-target="#MapModal">
+                      <i class="bi bi-pin-map me-2"></i> Add New Address
+                      </button>
+                   </div>
+                </div>
+             </div>
+             <div class="accordion-item bg-white shadow-sm rounded border-0 position-relative mb-3">
+                <h2 class="accordion-header" id="flush-headingThree">
+                   <button class="accordion-button rounded-3 collapsed p-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      <span>
+                         <h5 class="fw-bold mb-2">Select payment method</h5>
+                         <p class="small text-muted mb-0">Select a payment method from the existing one or create one</p>
+                      </span>
+                   </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                   <div class="accordion-body border-top p-0">
+                      <div class="row m-0">
+                         <div class="col-md-4 p-4 ps-md-4 py-md-4 pe-md-0 bg-light">
+                            <div class="nav flex-column delivery-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                               <button class="nav-link active py-3" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Offers for you</button>
+                               <button class="nav-link py-3" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Wallets</button>
+                               <button class="nav-link py-3" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Credit and debit cards</button>
+                               <button class="nav-link py-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">UPI</button>
+                            </div>
+                         </div>
+                         <div class="col-md-8 p-4">
+                            <div class="tab-content" id="v-pills-tabContent">
+                               <!-- 1st tab -->
+                               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                  <div class="border rounded p-4 d-flex align-items-center gap-4 bg-white mb-3">
+                                     <i class="icofont-3x icofont-apple-pay-alt"></i>
+                                     <div class="d-flex flex-column">
+                                        <h5 class="card-title h6 fw-bold mb-2">Apple Pay</h5>
+                                        <p class="card-text text-muted">Apple Pay lets you order now &amp; pay later at no extra cost.</p>
+                                        <a class="text-decoration-none fw-bold text-success" href="#">LINK ACCOUNT <i class="icofont-link-alt"></i></a>
+                                     </div>
+                                  </div>
+                                  <div class="border rounded p-4 d-flex align-items-center gap-4 bg-white mb-3">
+                                     <i class="icofont-3x icofont-paypal-alt"></i>
+                                     <div class="d-flex flex-column">
+                                        <h5 class="card-title h6 fw-bold mb-2">Paypal</h5>
+                                        <p class="card-text text-muted">Paypal lets you order now &amp; pay later at no extra cost.</p>
+                                        <a class="text-decoration-none fw-bold text-success" href="#">LINK ACCOUNT <i class="icofont-link-alt"></i></a>
+                                     </div>
+                                  </div>
+                                  <div class="border rounded p-4 d-flex align-items-center gap-4 bg-white mb-3">
+                                     <i class="icofont-3x icofont-diners-club"></i>
+                                     <div class="d-flex flex-column">
+                                        <h5 class="card-title h6 fw-bold mb-2">Diners Club</h5>
+                                        <p class="card-text text-muted">Diners Club lets you order now &amp; pay later at no extra cost.</p>
+                                        <a class="text-decoration-none fw-bold text-success" href="#">LINK ACCOUNT <i class="icofont-link-alt"></i></a>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- 2nd tab -->
+                               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                  <div class="border rounded mb-3">
+                                     <div class="d-flex align-items-center gap-3 border-bottom p-3">
+                                        <img src="{% static 'storeapp/assets/img/payment2.png' %}"
+                                           alt="" class="img-fluid rounded-circle bg-light h-40">
+                                        <h6 class="fw-bold mb-0">Simpl</h6>
+                                     </div>
+                                     <div class="p-3">
+                                        <p class="text-primary small mb-1">Get 40% cashbck, No min order value</p>
+                                        <p class="text-muted">Your Simpl account is not linked. Please Link your Account.</p>
+                                        <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#staticBackdroppay1">
+                                        Link Account
+                                        </button>
+                                     </div>
+                                  </div>
+                                  <div class="border rounded">
+                                     <div class="d-flex align-items-center gap-3 border-bottom p-3">
+                                        <img src="{% static 'storeapp/assets/img/payment3.png' %}"
+                                           alt="" class="img-fluid rounded-circle bg-light h-40">
+                                        <h6 class="fw-bold mb-0">Paytm</h6>
+                                     </div>
+                                     <div class="p-3">
+                                        <p class="text-danger small mb-1">Get 40% cashbck, No min order value</p>
+                                        <p class="text-muted">Your Paytm account is not linked. Please Link yourAccount.</p>
+                                        <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#staticBackdroppay1">
+                                        Link Account
+                                        </button>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- 3rd tab -->
+                               <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                  <div class="border rounded-3 p-3">
+                                     <div class="row">
+                                        <div class="col-12">
+                                           <h6 class="mb-0">Enter your card details</h6>
+                                           <form class="mt-4">
+                                              <div class="mb-3">
+                                                 <label for="exampleInputText1" class="form-label">Card Number</label>
+                                                 <input type="text" class="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="*** *** *** 1234">
+                                              </div>
+                                              <div class="row g-3 mb-3">
+                                                 <div class="col">
+                                                    <label for="exampleInputMMYY1" class="form-label">Expiry Date</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                       <input type="text" class="form-control" id="exampleInputMMYY1"  placeholder="MM" aria-label="First name">
+                                                       <span>/</span>
+                                                       <input type="number" class="form-control" placeholder="YY" aria-label="First name" id="exampleInputMMYY1">
+                                                    </div>
+                                                 </div>
+                                                 <div class="col">
+                                                    <label for="exampleInputCVV1" class="form-label">CVV</label>
+                                                    <input type="text" class="form-control" id="exampleInputCVV1" placeholder="e.g. 123" aria-label="Last name">
+                                                 </div>
+                                              </div>
+                                              <div class="mb-3">
+                                                 <label for="exampleInputName1" class="form-label">Name on Card</label>
+                                                 <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="e.g. Rahul Mishra">
+                                                 <small class="text-muted">Full name as displayed on card</small>
+                                              </div>
+                                              <div class="d-grid">
+                                                 <button type="button" class="btn btn-success btn-lg py-3 px-4">
+                                                    <div class="d-flex justify-content-between">
+                                                       <div>Pay</div>
+                                                       <div class="fw-bold">₹750</div>
+                                                    </div>
+                                                 </button>
+                                              </div>
+                                           </form>
+                                        </div>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- 4rth tab -->
+                               <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                  <div class="border rounded mb-3">
+                                     <div class="d-flex align-items-center gap-3 border-bottom p-3">
+                                        <img src="{% static 'storeapp/assets/img/payment1.png'%}" alt="" class="img-fluid rounded-circle bg-light h-40">
+                                        <h6 class="fw-bold mb-0">Add New UPI ID</h6>
+                                     </div>
+                                     <div class="p-3">
+                                        <div class="input-group">
+                                           <input type="text" class="form-control" placeholder="E.g rahul@icici">
+                                           <button class="btn btn-secondary" type="button">Verify & Pay</button>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <div class="border rounded d-flex align-items-center gap-3 p-3">
+                                     <img src="{% static 'storeapp/assets/img/payment2.png'%}" alt="" class="img-fluid rounded-circle bg-light h-40">
+                                     <span class="text-start">
+                                        <p class="mb-0 fs-14">rahul@icici</p>
+                                     </span>
+                                     <a class="btn btn-sm btn-success ms-auto my-auto" href="#">Pay ₹750</a>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div role="alert" class="p-0 alert alert-success alert-dismissible fade show bg-white rounded shadow-sm overflow-hidden mb-3 ms-lg-5">
+             <div class="border-bottom p-4">
+                <h5 class="fw-bold mb-1">Amazing deals for you</h5>
+                <p class="text-muted small mb-0">You're eligible for some samples</p>
+             </div>
+             <div class="product-list bg-white d-flex p-4">
+                <img src="{% static 'storeapp/assets/img/p16.jpg'%}" class="img-fluid" alt="...">
+                <div class="product-list-body px-3">
+                   <p class="fw-bold mb-1">Kinder Creamy Milky And Crunchy 1 Pc</p>
+                   <p class="card-text small mb-3">Delicious chocklate filled with puffed rice cereals in a slightly.</p>
+                   <h6 class="mb-0"><del>₹135</del> <span class="text-success fw-bold mb-2">FREE</span></h6>
+                </div>
+                <div class="ms-auto mb-auto">
+                   <button data-bs-dismiss="alert" aria-label="Close" type="button" class="btn btn-white border rounded-pill text-success">Remove</button>
+                </div>
+             </div>
+          </div>
+          <div class="bg-white rounded shadow-sm overflow-hidden ms-lg-5">
+             <div class="px-4 pt-4">
+                <h5 class="fw-bold mb-1">Recommended for you</h5>
+                <p class="text-muted small mb-0">We think you'll these items based on your cart</p>
+             </div>
+             <div class="p-4">
+                <div class="row">
+                   <div class="col">
+                      <div class="card h-100 overflow-hidden shadow-sm border-0">
+                         <img src="{% static 'storeapp/assets/img/list7.jpg'%}" class="card-img-top of-cover " alt="...">
+                         <div class="card-body px-3 pb-3 pt-3">
+                            <p class="card-title">Lizol Citrus Surface Cleaner</p>
+                            <p class="card-text text-muted small">500 ML</p>
+                         </div>
+                         <div class="px-3 pt-0 pb-3 card-footer bg-white border-0 d-flex align-items-center justify-content-between">
+                            <div class="fw-bold">₹115</div>
+                            <button type="button" class="btn btn-outline-success px-3 btn-sm rounded-pill"><span><i class="bi bi-plus-lg"></i></span>&nbsp;Add</button>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col">
+                      <div class="card h-100 overflow-hidden shadow-sm border-0">
+                         <img src="{% static 'storeapp/assets/img/list2.jpg'%}" class="card-img-top of-cover" alt="...">
+                         <div class="card-body px-3 pb-3 pt-3">
+                            <p class="card-title">Harpic Surface Cleaner</p>
+                            <p class="card-text text-muted small">500 ML</p>
+                         </div>
+                         <div class="px-3 pt-0 pb-3 card-footer bg-white border-0 d-flex align-items-center justify-content-between">
+                            <div class="fw-bold">₹89</div>
+                            <button type="button" class="btn btn-outline-success px-3 btn-sm rounded-pill"><span><i class="bi bi-plus-lg"></i></span>&nbsp;Add</button>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col d-none d-md-block">
+                      <div class="card h-100 overflow-hidden shadow-sm border-0">
+                         <img src="{% static 'storeapp/assets/img/list3.jpg'%}" class="card-img-top of-cover" alt="...">
+                         <div class="card-body px-3 pb-3 pt-3">
+                            <p class="card-title">Lay's Magic Masala CHips &amp; Coca Cola</p>
+                            <p class="card-text text-muted small">2 ITEMS</p>
+                         </div>
+                         <div class="px-3 pt-0 pb-3 card-footer bg-white border-0 d-flex align-items-center justify-content-between">
+                            <div class="fw-bold">₹52</div>
+                            <button type="button" class="btn btn-outline-success px-3 btn-sm rounded-pill"><span><i class="bi bi-plus-lg"></i></span>&nbsp;Add</button>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4">
+          <div class="fixed-sidebar">
+             <div class="bg-white cart-box shadow-sm rounded position-relative mb-3">
+                <div class="p-3 border-bottom">
+                   <h5 class="mb-0 fw-bold">Your Cart</h5>
+                   <p class="small mb-0">4 items from <span class="text-success">Grand Fresh Supermart</span></p>
+                </div>
+                <div class="py-2">
+                   <div class="cart-box-item d-flex align-items-center py-2 px-3">
+                      <div class="success-dot"></div>
+                      <div class="cart-box-item-title px-2">
+                         <p class="mb-0">Coke &amp; lays Combo</p>
+                         <p class="small text-muted mb-0">1 pack</p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto">
+                         <div class="minus cart-quantity-btn"><i class="bi bi-dash text-success"></i></div>
+                         <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="1">
+                         <div class="plus cart-quantity-btn"><i class="bi bi-plus text-success"></i></div>
+                      </div>
+                      <div class="cart-box-item-price">
+                         <div class="text-end">₹87</div>
+                      </div>
+                   </div>
+                   <div class="cart-box-item d-flex align-items-center py-2 px-3">
+                      <div class="success-dot"></div>
+                      <div class="cart-box-item-title px-2">
+                         <p class="mb-0">Coca-Cola Soft Drink Can</p>
+                         <p class="small text-muted mb-0">300 ML</p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto">
+                         <div class="minus cart-quantity-btn"><i class="bi bi-dash text-success"></i></div>
+                         <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="2">
+                         <div class="plus cart-quantity-btn"><i class="bi bi-plus text-success"></i></div>
+                      </div>
+                      <div class="cart-box-item-price">
+                         <div class="text-end">₹40</div>
+                      </div>
+                   </div>
+                   <div class="cart-box-item d-flex align-items-center py-2 px-3">
+                      <div class="success-dot"></div>
+                      <div class="cart-box-item-title px-2">
+                         <p class="mb-0">Coca-Cola Regular</p>
+                         <p class="small text-muted mb-0">250 ML</p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto">
+                         <div class="minus cart-quantity-btn"><i class="bi bi-dash text-success"></i></div>
+                         <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="2">
+                         <div class="plus cart-quantity-btn"><i class="bi bi-plus text-success"></i></div>
+                      </div>
+                      <div class="cart-box-item-price">
+                         <div class="text-end">₹20</div>
+                      </div>
+                   </div>
+                   <div class="cart-box-item d-flex align-items-center py-2 px-3">
+                      <div class="success-dot"></div>
+                      <div class="cart-box-item-title px-2">
+                         <p class="mb-0">French fries combo</p>
+                         <p class="small text-muted mb-0">For 2 people</p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto">
+                         <div class="minus cart-quantity-btn"><i class="bi bi-dash text-success"></i></div>
+                         <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="2">
+                         <div class="plus cart-quantity-btn"><i class="bi bi-plus text-success"></i></div>
+                      </div>
+                      <div class="cart-box-item-price">
+                         <div class="text-end">₹87</div>
+                      </div>
+                   </div>
+                   <div class="cart-box-item d-flex align-items-center py-2 px-3">
+                      <div class="success-dot"></div>
+                      <div class="cart-box-item-title px-2">
+                         <p class="mb-0">French fries regular</p>
+                         <p class="small text-muted mb-0">For 2 people</p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between rounded-pill border cart-quantity px-1 ms-auto">
+                         <div class="minus cart-quantity-btn"><i class="bi bi-dash text-success"></i></div>
+                         <input class="form-control text-center border-0 py-0 box" type="text" placeholder="" aria-label="default input example" value="2">
+                         <div class="plus cart-quantity-btn"><i class="bi bi-plus text-success"></i></div>
+                      </div>
+                      <div class="cart-box-item-price">
+                         <div class="text-end">₹50</div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="border border-warning bg-opacity-10 bg-warning shadow-sm rounded position-relative p-3 mb-3 tip-block">
+                <div class="d-flex gap-2 mb-2 pb-1">
+                   <span><i class="bi bi-heart-fill text-warning"></i></span>
+                   <div>Thanks your partner with a tip</div>
+                </div>
+                <div>
+                   <div class="col-tip">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                         autocomplete="off" checked>
+                      <label class="btn btn-light btn-sm rounded-pill border" for="btnradio1">
+                         <div class="d-flex align-items-center gap-1">
+                            <div><img src="{% static 'storeapp/assets/img/tip1.png'%}" alt="" class="img-fluid"></div>
+                            <div>&#8377;10</div>
+                         </div>
+                      </label>
+                   </div>
+                   <div class="col-tip">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                         autocomplete="off" checked>
+                      <label class="btn btn-light btn-sm rounded-pill border" for="btnradio2">
+                         <div class="d-flex align-items-center gap-1">
+                            <div><img src="{% static 'storeapp/assets/img/tip2.png'%}" alt="" class="img-fluid"></div>
+                            <div>&#8377;20</div>
+                         </div>
+                      </label>
+                   </div>
+                   <div class="col-tip">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                         autocomplete="off" checked>
+                      <label class="btn btn-light btn-sm rounded-pill border" for="btnradio3">
+                         <div class="d-flex align-items-center gap-1">
+                            <div><img src="{% static 'storeapp/assets/img/tip3.png'%}" alt="" class="img-fluid"></div>
+                            <div>&#8377;35</div>
+                         </div>
+                      </label>
+                   </div>
+                   <div class="col-tip">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
+                         autocomplete="off" checked>
+                      <label class="btn btn-light btn-sm rounded-pill border" for="btnradio4">
+                         <div class="d-flex align-items-center gap-1">
+                            <div><img src="{% static 'storeapp/assets/img/tip1.png'%}" alt="" class="img-fluid"></div>
+                            <div>&#8377;40</div>
+                         </div>
+                      </label>
+                   </div>
+                   <div class="col-tip">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio5"
+                         autocomplete="off" checked>
+                      <label class="btn btn-light btn-sm rounded-pill border" for="btnradio5">
+                         <div class="d-flex align-items-center gap-1">
+                            <div><img src="{% static 'storeapp/assets/img/tip2.png'%}" alt="" class="img-fluid"></div>
+                            <div>&#8377;50</div>
+                         </div>
+                      </label>
+                   </div>
+                   <div class="col-tip">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio6"
+                         autocomplete="off" checked>
+                      <label class="btn btn-light btn-sm rounded-pill border" for="btnradio6">
+                         <div class="d-flex align-items-center gap-1">
+                            <div><img src="{% static 'storeapp/assets/img/tip3.png'%}" alt="" class="img-fluid"></div>
+                            <div>&#8377;65</div>
+                         </div>
+                      </label>
+                   </div>
+                </div>
+                <div class="col-auto mt-2">
+                   <div class="small text-muted">The amount will be credited to the partner's tip jar</div>
+                </div>
+             </div>
+             <div class="bg-white shadow-sm rounded position-relative mb-3">
+                <div>
+                   <div class="input-group input-group-sm p-3 align-items-center border-bottom">
+                      <input type="text" class="form-control border-0 p-0" placeholder="Enter promo code">
+                      <a class="fw-bold border-0 text-warning p-0 text-decoration-none btn-sm rounded ms-1" href="#"><i class="icofont-sale-discount"></i> APPLY</a>
+                   </div>
+                   <div class="input-group input-group-sm p-3">
+                      <span class="input-group-text bg-white align-items-start border-0 ps-0 pb-0 pt-1 pe-3"><i class="bi bi-chat-left-dots"></i></span>
+                      <textarea class="form-control border-0 p-0" placeholder="Any Instructions? Eg: Do not ring the doorbell"></textarea>
+                   </div>
+                </div>
+             </div>
+             <div class="bg-white shadow-sm rounded position-relative overflow-hidden">
+                <div class="accordion" id="accordionExample">
+                   <div class="accordion-item border-0">
+                      <h2 class="accordion-header" id="headingOne">
+                         <button class="accordion-button bg-white text-dark p-3" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            <div class="fw-bold">Invoice</div>
+                         </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse text-dark show"
+                         aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                         <div class="accordion-body px-3 pb-3 pt-0">
+                            <div class="d-flex justify-content-between align-items-center pb-1">
+                               <div class="text-muted">Item total</div>
+                               <div class="text-dark">&#8377;1295</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-1">
+                               <div class="text-muted">Packing</div>
+                               <div class="text-dark">&#8377;5</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-1">
+                               <div class="text-muted">Partner tip amount</div>
+                               <div class="text-dark">&#8377;10</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-1">
+                               <div class="text-muted">Partner delivery fee&nbsp;<span><i  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Free delivery covers all delivery charges such as delivery fee" class="bi bi-info-circle text-muted small"></i></span></div>
+                               <div class="text-dark">&#8377;70</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-1 text-warning">
+                               <div>Eatsle cash discount</div>
+                               <div>-&#8377;50</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center pt-1">
+                               <div class="fw-bold">To pay</div>
+                               <div class="fw-bold">&#8377;245</div>
+                            </div>
+                         </div>
+                         <div class="bg-warning text-white px-3 py-2">
+                            <span><i class="bi bi-check-circle-fill text-white"></i></span>&nbsp;
+                            Woohoo! You saved &#8377;50 on this order
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="d-grid my-3">
+                <a href="success-order.html" class="btn btn-success btn-lg py-3 px-4">
+                   <div class="d-flex justify-content-between">
+                      <div>Checkout</div>
+                      <div class="fw-bold">₹750</div>
+                   </div>
+                </a>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+{% endblock %}

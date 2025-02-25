@@ -1,0 +1,13 @@
+{% for ad in my_add %}
+<div class="btn-group gap-3 osahan-btn-group d-flex col-md-6 mb-2" role="group" aria-label="Basic radio toggle button group">
+   <input type="radio" class="btn-check activate_address" {% if ad.ad_status == 'ACTIVE'%}checked {% endif%} name="btnradiod" id="{{ad.ad_id}}" autocomplete="off">
+   <label  class="btn btn-outline-light d-flex align-items-center gap-3 rounded p-3 col-6" for="{{ad.ad_id}}">
+      <i class="bi bi-house h5 mb-0"></i>
+      <span class="text-start">
+         <h6 class="mb-1 fw-bold">{{ad.ad_type}} - <i>{{ad.ad_status}}</i></h6>
+         <div class="text-muted small text-opacity-50">{{ad.ad_name}}</div>
+      </span>
+      <i class="bi bi-check-circle-fill ms-auto"></i>
+   </label>
+</div>
+{% endfor %}

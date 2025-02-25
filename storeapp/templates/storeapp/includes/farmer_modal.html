@@ -1,0 +1,79 @@
+<div class="modal fade" id="add-product" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content border-0 shadow">
+          <div class="modal-header px-4">
+             <h5 class="h6 modal-title fw-bold">Add Products</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+             <form id="addproduct">
+               {% csrf_token %}
+               {% for p in product_frm %}
+               <label>{{p.label}}</label>
+                <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                   {{p}}
+                </div>
+                {% endfor %}
+                {% for pp in productPrice_frm %}
+                <label>{{pp.label}}</label>
+                <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                   {{pp}}
+                </div>
+                {% endfor %}
+                {% for pi in productImage_frm %}
+                <label>{{pi.label}}</label>
+                <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                   {{pi}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-outline-success btn-lg py-3 px-4 w-100">
+                  SAVE PRODUCT
+                  </button>
+             </form>
+                
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+
+
+ <div class="modal fade" id="update_product_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+         <div class="modal-header px-4">
+            <h5 class="h6 modal-title fw-bold">Update Products</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body p-4">
+            <img src="media/uploads/OIP.jpg" style="height: 100px;width: 100px;" id="product_image" class="img-fluid text-center" alt="product image">
+            <form id="updateproduct">
+              {% csrf_token %}
+              <input type="hidden" name="product_id" id="product_id">
+              {% for p in product_frm %}
+              <label>{{p.label}}</label>
+               <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                  {{p}}
+               </div>
+               {% endfor %}
+               {% for pp in productPrice_frm %}
+               <label>{{pp.label}}</label>
+               <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                  {{pp}}
+               </div>
+               {% endfor %}
+               <label>Product Image</label>
+               <div class="input-group border p-1 overflow-hidden osahan-search-icon shadow-sm rounded mb-3">
+                  <input type="file" name="pi_image" class="form-control inputclass"  id="id_pi_image" >
+               </div>
+               <button type="submit" class="btn btn-outline-success btn-lg py-3 px-4 w-100">
+                 UPDATE PRODUCT
+                 </button>
+            </form>
+               
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

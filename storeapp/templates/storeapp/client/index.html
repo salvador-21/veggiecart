@@ -1,0 +1,52 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="bg-success">
+    <div class="container">
+       <div class="row py-3">
+          <div class="d-flex gap-3 align-items-center">
+             <img src="{% static 'storeapp/assets/img/fav.png' %}" class="img-fluid d-none d-md-block h-40">
+             <div class="text-white fs-6">Download the app and get <b class="text-warning-light rounded-pill">25% OFF</b> on your first order!</div>
+             <a href="#app-section" class="text-nowrap ms-auto text-decoration-none d-flex align-items-center text-success border-0 btn btn-light rounded-pill">Download <span class="ms-1 d-none d-md-block"> Eatsle App Now&nbsp;</span><span><i class="bi bi-chevron-right text-success"></i></span></a>
+          </div>
+       </div>
+    </div>
+ </section>
+ <section class="main-banner bg-white pt-4">
+    <div class="container">
+       <div id="carouselExampleFade" class="carousel slide carousel-fade mb-4" data-bs-ride="carousel">
+          <div class="carousel-inner rounded">
+             <div class="carousel-item active">
+                <a href="#"><img src="{% static 'storeapp/assets/img/banner1.png' %}" class="d-block w-100" alt="..."></a>
+             </div>
+             <div class="carousel-item">
+                <a href="#"><img src="{% static 'storeapp/assets/img/banner2.png' %}" class="d-block w-100" alt="..."></a>
+             </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+          </button>
+       </div>
+       <div class="container py-5">
+         <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0 fw-bold">Veggie Products</h5>
+            <a class="text-decoration-none text-success" href="/products">View All <i class="bi bi-arrow-right-circle-fill ms-1"></i></a>
+         </div>
+         <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 homepage-products-range" id="products-display">
+            
+            
+  
+         </div>
+      </div>
+    </div>
+ </section>
+ 
+ 
+
+ {% endblock %}
